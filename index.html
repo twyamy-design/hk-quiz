@@ -126,7 +126,7 @@ body.is-file .file-banner{display:block}
         <div class="tip"><b>3</b><span>長按藍色網址文字可以複製；貼去 Safari 網址列即可。</span></div>
       </div>
       <div class="toggle-row">
-        <label><input type="checkbox" id="timerOn" checked /> 開計時（每題 20 秒）</label>
+        <label class="hidden"><input type="checkbox" id="timerOn" />計時關閉</label>
       </div>
       <button class="btn btn-primary" id="btnStart">開始挑戰</button>
       <div class="btn-row">
@@ -139,7 +139,7 @@ body.is-file .file-banner{display:block}
   <div id="screen-quiz" class="hidden">
     <div class="topbar">
       <div class="pill" id="progressPill">1 / 30</div>
-      <div class="pill timer" id="timerPill"><span class="timer-ring" id="timerNum">20</span> 秒</div>
+      <div class="pill timer" id="timerPill" style="display:none"><span class="timer-ring" id="timerNum">20</span> 秒</div>
       <div class="pill" id="scorePill">得分 0 · 連續 0</div>
     </div>
     <div class="btn-row" style="margin:0 0 10px">
@@ -205,6 +205,8 @@ const COLORS = {A:'a',B:'b',C:'c',D:'d'};
 const SHAPES = {A:'▲',B:'◆',C:'●',D:'■'};
 const IS_FILE = (location.protocol === 'file:');
 if (IS_FILE) document.body.classList.add('is-file');
+// 家長要求：每題無時限
+try { const _t=$('timerOn'); if(_t){ _t.checked=false; _t.disabled=true; } } catch(e){}
 
 const state = {
   index:0, score:0, streak:0, picked:null, wrong:[], mode:'all',
